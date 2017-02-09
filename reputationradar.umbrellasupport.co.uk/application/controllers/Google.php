@@ -8,7 +8,7 @@ class Google extends  CI_Controller
 
     public function Index()
     {
-        $this->companyUrl = 'https://www.google.com.ph/search?num=50&q=obejero';
+        $this->companyUrl = 'https://www.google.com.ph/search?num=50&q=love+me+like+you+do';
         // $trustPilotData = $this->getReviewCentreComments();
         $this->getGoogleData();
     }
@@ -28,12 +28,10 @@ class Google extends  CI_Controller
         $html = file_get_html($this->companyUrl);
 
         $i=0;
-
-
-
+  
         print "<pre>";
         foreach($html->find('div.g') as $search) {
- 
+
                 $i++;
 
                 $title = $search->find('a', 0);
@@ -50,82 +48,14 @@ class Google extends  CI_Controller
             }
 
             if(!empty($link)) {
-                print "title text = " . $link->text();
+                print "title text = <a href='" . $link->text() . "'  > link </a>";
             }
 
             if(!empty($description)) {
                 print "title text = " . $description->text();
             }
 
-            print "<br>";
-
-
-
-
-//            print_r($title);
-
-
-//            $titleArray = (array)$title;
-
-//
-//
-//            $titleText = $title->text();
-//
-//
-//
-//                print "$i ";
-//
-//                print " title text " . $titleText . '<br>';
-//
-
-
-
-
-//
-//
-//                if(strpos($title->text(), 'Images') <= -1) {
-//
-//                    print "$i<br>";
-//
-//
-//                    if (!empty($link1->text())) {
-//                        print " " . $link1->text();
-//                    }
-//
-//                    if (!empty($link2->text())) {
-//                        print " " . $link2->text();
-//                    }
-////
-//                    if (!empty($link3->text())) {
-//                        print " " . $link3->text();
-//                    }
-//
-//                    print "<br><br><br>";
-//                }
-
-
-
-//            }
-
-
-//            $link12 = (!empty($link1->text() ) ) ? $link1->text() : null;
-//
-//            print " " . $link12 ;
-
-//            exit;
-
-
-//            print "<br>" . $i .'  '. $link1->text()  . ' ' .$link2->text() . ' <br><b>' . $link3->text() . '</b>' ;
-
-
-
-            //            if($i  >1) {
-            //                break;
-            //            }
-
-
-//            break;
-
+            print "<hr><br>";
 
 
         }
