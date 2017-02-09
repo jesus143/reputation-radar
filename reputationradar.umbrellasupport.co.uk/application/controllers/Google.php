@@ -16,6 +16,13 @@ class Google extends  CI_Controller
 
     public function getGoogleData()
     {
+
+
+        print "<html>";
+        print "  <meta charset='UTF-8'>";
+
+
+
         $this->load->library('simple_html_dom');
 
         $html = file_get_html($this->companyUrl);
@@ -26,13 +33,9 @@ class Google extends  CI_Controller
 
         print "<pre>";
         foreach($html->find('div.g') as $search) {
-
-//            print "<pre>";
-//            print_r($search);
-//            print"</pre>";
-
-            $i++;
  
+                $i++;
+
                 $title = $search->find('a', 0);
                 $link = $search->find('cite', 0);
 
@@ -48,6 +51,10 @@ class Google extends  CI_Controller
 
             if(!empty($link)) {
                 print "title text = " . $link->text();
+            }
+
+            if(!empty($description)) {
+                print "title text = " . $description->text();
             }
 
             print "<br>";
