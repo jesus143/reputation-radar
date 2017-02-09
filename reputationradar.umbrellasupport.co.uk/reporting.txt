@@ -1,0 +1,15 @@
+create ui for partner settings
+create ui for partner alert page and tabs
+setup codeigniter application
+start integration with scrape api's
+debugging current scrape api for trust pilot review site
+
+
+
+
+Update for Feb 8, 2017
+Able paln the process and create script that will scrape the google results and for now google is not showing sometime,
+it mean scrape has a bugs with images results. This can be addressed tomorrow.
+
+Todo for Feb 9, 2017
+Continue with google search
