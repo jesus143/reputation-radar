@@ -8,57 +8,83 @@ class Google extends  CI_Controller
 
     public function Index()
     {
-        $this->companyUrl = 'https://www.google.com.ph/search?num=50&q=love+me+like+you+do';
-        // $trustPilotData = $this->getReviewCentreComments();
-        $this->getGoogleData();
-    }
+        // load model
+        $this->load->model('Reputation_radar_setting_model', 'setting');
+        $this->load->model('Reputation_radar_alert_model', 'alert');
 
+
+        // get all the entries for the partner settings
+        $settings = $this->setting->get_last_ten_entries();
+
+        // start foreach of all data
+        foreach($settings as $key => $setting) {
+
+            // url encoded for google keyword
+            $keyword = urlencode($setting->company_search_keyword);
+
+            // compose url ready for scrape to google
+            $this->companyUrl = 'https://www.google.com.ph/search?num=2&q=' . $keyword;
+
+            // scrape google data
+            $results = $this->getGoogleData();
+
+            //check if exist then do nothing but if not then do insert
+            $this->alert->checkIfAlertIsExistOrElseInsertAlert($results, $setting->partner_id);
+
+        }
+
+    }
 
     public function getGoogleData()
     {
 
+        // initialized data
+        $result = [];
+        $i=0;
 
-        print "<html>";
-        print "  <meta charset='UTF-8'>";
-
-
-
+        // load dom library for php
         $this->load->library('simple_html_dom');
 
+        // results from website query, for now we do search in google
+        // but in the future we may be able to search in bing, yahoo and other
+        // search engine sites
         $html = file_get_html($this->companyUrl);
 
-        $i=0;
-  
-        print "<pre>";
+        // start foreach data through the results of website query via dom
         foreach($html->find('div.g') as $search) {
 
-                $i++;
+            // get title of the result
+            $title = $search->find('a', 0);
 
-                $title = $search->find('a', 0);
-                $link = $search->find('cite', 0);
+            // get link of the result
+            $link = $search->find('cite', 0);
 
+            // get description of the result
+            $description = $search->find('span.st', 0);
 
-                $description = $search->find('span.st', 0);
-
-
-            print "  $i ";
-
+            // title results store to array
             if(!empty($title)) {
-                print "title text = " . $title->text();
+                $result[$i]['title'] = $title->text();
             }
 
+            // link results store to array
             if(!empty($link)) {
-                print "title text = <a href='" . $link->text() . "'  > link </a>";
+                $result[$i]['url'] = $link->text();
             }
 
+            // description results store to array
             if(!empty($description)) {
-                print "title text = " . $description->text();
+
+                $result[$i]['description'] = $description->text();
             }
 
-            print "<hr><br>";
-
+            // increment counter for array
+            $i++;
 
         }
+
+        // return values as array
+        return $result;
     }
 
     public function getReviewCentreComments($page=1)
