@@ -23,7 +23,7 @@ class Google extends  CI_Controller
             $keyword = urlencode($setting->company_search_keyword);
 
             // compose url ready for scrape to google
-            $this->companyUrl = 'https://www.google.com.ph/search?num=2&q=' . $keyword;
+            $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
 
             // scrape google data
             $results = $this->getGoogleData();

@@ -16,7 +16,7 @@ class  Reputation_radar_setting_model extends CI_Model {
     {
         // get all partner settings
         // this also being manage in wordpress end
-        $query = $this->db->get('wp_reputation_radar_settings');
+        $query = $this->db->get($this->table_name);
         return $query->result();
     }
 }
