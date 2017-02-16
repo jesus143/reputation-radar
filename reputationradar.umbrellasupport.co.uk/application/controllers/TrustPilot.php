@@ -15,8 +15,6 @@ class TrustPilot extends  CI_Controller {
         print "<pre>";
         print_r($trustPilotData);
         print "</pre>";
-
-
     }
 
 

@@ -4,26 +4,53 @@ error_reporting(0);
 class ReviewCentre extends  CI_Controller {
 
     protected $companyUrl = '';
+    protected $url;
+    protected $acceptedBadRating = 3;
 
     public function Index()
     {
-        $this->companyUrl = 'http://www.reviewcentre.com/reviews57568.html';
-//        $this->companyUrl = 'http://www.reviewcentre.com/Airport-Transfers/Airport-Transfers-www-airporttransfers-co-uk-reviews_1706799';
-//        $this->companyUrl = 'http://www.reviewcentre.com/reviews12632.html';
-
-        $trustPilotData = $this->getReviewCentreComments();
-        print "<pre>";
-        print_r($trustPilotData);
-        print "</pre>";
+        //  $this->execute('http://www.reviewcentre.com/reviews57568.html');
     }
 
-    public function getReviewCentreComments($page=1)
+    public function getBadRatings($url)
+    {
+
+        $this->url = $url;
+
+        $trustPilotData           = $this->getReviewCentreComments();
+
+        $trustPilotDataBadComment = $this->getReviewCentreBadRating($trustPilotData['rows']);
+
+        return $trustPilotDataBadComment;
+    }
+
+    private function getReviewCentreBadRating($trustPilotData)
+    {
+        $data = [];
+
+        foreach($trustPilotData as $review) {
+
+            if($review['total_star'] <= $this->acceptedBadRating) {
+
+                $data[] = [
+                    'title' => strip_tags($review['title']),
+                    'description' => strip_tags($review['content']),
+                    'person_name' => strip_tags(change_long_space_to_sing_space($review['full_name'])),
+                    'url' => $this->url,
+                    'rate' => $review['total_star'],
+                ];
+            }
+        }
+        return $data;
+    }
+
+    public function getReviewCentreComments()
     {
         // Initialized library
         $this->load->library('scraper');
 
         // Set url to scrape
-        $this->scraper->capture_dom($this->companyUrl);
+        $this->scraper->capture_dom($this->url);
 
         // Start scrape and get comment time, content and rating
         $table_rows1 = $this->scraper->find(array(
