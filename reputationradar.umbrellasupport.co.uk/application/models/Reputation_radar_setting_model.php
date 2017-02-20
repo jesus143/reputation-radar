@@ -14,9 +14,18 @@ class  Reputation_radar_setting_model extends CI_Model {
 
     public function get_last_ten_entries()
     {
-        // get all partner settings
-        // this also being manage in wordpress end
         $query = $this->db->get($this->table_name);
         return $query->result();
+    }
+    public function get_entry_by_batch_index($index)
+    {
+        $query = $this->db->get($this->table_name);
+        $response = $query->result_array();
+
+        return $response[$index];
+
+        //        print "<pre>";
+        //        print_R($results);
+        //        exit;
     }
 }

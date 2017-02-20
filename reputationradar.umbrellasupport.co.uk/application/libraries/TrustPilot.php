@@ -1,13 +1,20 @@
 <?php
 error_reporting(0);
 
-class TrustPilot extends  CI_Controller {
+class TrustPilot {
 
 
 
     protected $companyUrl = '';
     protected $url;
     protected $acceptedBadRating = 5;
+    protected $CI;
+
+    public function __construct()
+    {
+        $this->CI =& get_instance();
+    }
+
 
     public function Index()
     {
@@ -27,11 +34,7 @@ class TrustPilot extends  CI_Controller {
     public function getBadRatings($url)
     {
 
-
-
         $this->url = $url;
-
-
 
         $trustPilotData           = $this->getTrustPilotComments();
 
@@ -63,15 +66,15 @@ class TrustPilot extends  CI_Controller {
     {
 
         // Initialized library
-        $this->load->library('scraper');
+        $this->CI->load->library('scraper');
 
 
         // Set url to scrape
-        $this->scraper->capture_dom($this->url);
+        $this->CI->scraper->capture_dom($this->url);
 
 
         // Start scrape and get comment time, content and rating
-        $table_rows1 = $this->scraper->find(array(
+        $table_rows1 = $this->CI->scraper->find(array(
                 'name' => 'rows',
                 'query' => '//div[@id="reviews-container"]//*[contains(@class, "review-info")]',
                 'subqueries' => array(
@@ -87,7 +90,7 @@ class TrustPilot extends  CI_Controller {
          );
 
         // Start scrape and get comment name
-        $table_rows2 = $this->scraper->find(array(
+        $table_rows2 = $this->CI->scraper->find(array(
                 'name' => 'rows',
                 'query' => '//div[@id="reviews-container"]//*[contains(@class, "user-review-name-link")]',
                 'subqueries' => array(

@@ -8,31 +8,37 @@ class Google extends  CI_Controller
 
     public function Index()
     {
+
+        print "<pre>";
         // load model
         $this->load->model('Reputation_radar_setting_model', 'setting');
         $this->load->model('Reputation_radar_alert_model', 'alert');
-
+        $this->load->model('Reputation_radar_setting_batch_model', 'google_batch');
 
         // get all the entries for the partner settings
-        $settings = $this->setting->get_last_ten_entries();
+        $batch = $this->google_batch->get_batch();
 
-        // start foreach of all data
-        foreach($settings as $key => $setting) {
+        $setting = $this->setting->get_entry_by_batch_index($batch['index']);
 
-            // url encoded for google keyword
-            $keyword = urlencode($setting->company_search_keyword);
 
-            // compose url ready for scrape to google
-            $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
 
-            // scrape google data
-            $results = $this->getGoogleData();
+        print_r($setting);
 
-            //check if exist then do nothing but if not then do insert
-            $this->alert->checkIfAlertIsExistOrElseInsertAlert($results, $setting->partner_id);
 
-        }
+        // url encoded for google keyword
+        $keyword = urlencode($setting['company_search_keyword']);
 
+        // compose url ready for scrape to google
+        $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
+
+        // scrape google data
+        $results = $this->getGoogleData();
+
+        //check if exist then do nothing but if not then do insert
+        $this->alert->checkIfAlertIsExistOrElseInsertAlert($results, $setting['partner_id']);
+
+        // update settings batch now
+        $this->google_batch->update_batch_increment($batch, $setting);
     }
 
     public function getGoogleData()
@@ -41,6 +47,7 @@ class Google extends  CI_Controller
         // initialized data
         $result = [];
         $i=0;
+
 
         // load dom library for php
         $this->load->library('simple_html_dom');

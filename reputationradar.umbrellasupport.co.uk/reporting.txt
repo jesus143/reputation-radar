@@ -13,3 +13,20 @@ it mean scrape has a bugs with images results. This can be addressed tomorrow.
 
 Todo for Feb 9, 2017
 Continue with google search
+
+
+
+
+    Update for Feb 17, 2017
+    1. Code with review center
+    2. Create migration for set links and add test inputs with site rating url and partner id
+    3. Use foreach to fetch the data and get url and partner id and start scrapping to rating url
+    4. With the result only filter and save to database that has poor rating that equals to 3 or less than 3 ratings
+    5. After scrapping and gather all the scraped data then allow save it to database with alert table
+    6. In agent and partner side, display the commentator name and total ratings of the review
+    7. Add some helper to make it codeigniter friendly in coding
+
+    Todo for Feb 18, 2017
+    1. Work with trust pilot scrape and saving to database
+
+    Thanks,

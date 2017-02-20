@@ -9,7 +9,7 @@ class Reputation_radar_rating_sites_model extends CI_Model {
 
     public function get_last_ten_entries()
     {
-        $query = $this->db->get($this->table_name);
+        $query = $this->db->get($this->table_name, 10);
         return $query->result();
     }
 }
