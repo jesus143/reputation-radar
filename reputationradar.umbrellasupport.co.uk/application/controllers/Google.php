@@ -20,10 +20,13 @@ class Google extends  CI_Controller
 
         $setting = $this->setting->get_entry_by_batch_index($batch['index']);
 
-
-
         print_r($setting);
 
+
+        //        print phpinfo();
+        //
+        //
+        //        exit;
 
         // url encoded for google keyword
         $keyword = urlencode($setting['company_search_keyword']);
@@ -50,7 +53,7 @@ class Google extends  CI_Controller
 
 
         // load dom library for php
-        $this->load->library('simple_html_dom');
+        $this->load->library('simplehtmldom');
 
         // results from website query, for now we do search in google
         // but in the future we may be able to search in bing, yahoo and other

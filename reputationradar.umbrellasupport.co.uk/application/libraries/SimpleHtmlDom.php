@@ -111,7 +111,7 @@ function dump_html_tree($node, $show_attr=true, $deep=0)
  *
  * @package PlaceLocalInclude
  */
-class simple_html_dom_node
+class SimpleHtmlDom
 {
     public $nodetype = HDOM_TYPE_TEXT;
     public $tag = 'text';
@@ -1157,7 +1157,7 @@ class simple_html_dom
         $this->lowercase = $lowercase;
         $this->default_br_text = $defaultBRText;
         $this->default_span_text = $defaultSpanText;
-        $this->root = new simple_html_dom_node($this);
+        $this->root = new SimpleHtmlDom($this);
         $this->root->tag = 'root';
         $this->root->_[HDOM_INFO_BEGIN] = -1;
         $this->root->nodetype = HDOM_TYPE_ROOT;
@@ -1174,7 +1174,7 @@ class simple_html_dom
         }
 
         // text
-        $node = new simple_html_dom_node($this);
+        $node = new SimpleHtmlDom($this);
         ++$this->cursor;
         $node->_[HDOM_INFO_TEXT] = $s;
         $this->link_nodes($node, false);
@@ -1329,7 +1329,7 @@ class simple_html_dom
             return true;
         }
 
-        $node = new simple_html_dom_node($this);
+        $node = new SimpleHtmlDom($this);
         $node->_[HDOM_INFO_BEGIN] = $this->cursor;
         ++$this->cursor;
         $tag = $this->copy_until($this->token_slash);
@@ -1530,7 +1530,7 @@ class simple_html_dom
     // as a text node
     protected function as_text_node($tag)
     {
-        $node = new simple_html_dom_node($this);
+        $node = new SimpleHtmlDom($this);
         ++$this->cursor;
         $node->_[HDOM_INFO_TEXT] = '</' . $tag . '>';
         $this->link_nodes($node, false);

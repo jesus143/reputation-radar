@@ -1,7 +1,6 @@
 <?php  
 
-
-class test{
+class Test{
 	function __construct()
 	{
 		print "test loaded"; 	
