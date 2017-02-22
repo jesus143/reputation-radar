@@ -30,3 +30,15 @@ Continue with google search
     1. Work with trust pilot scrape and saving to database
 
     Thanks,
+
+
+
+
+
+
+    Create batch for rating site scraping
+    Make data tables works in testing
+    Make bootstrap working
+    Wait for php version to update to latest version
+    Move the agent side to reputation.umbrellasupport.com
+    Connect agent side to testing database, find ways how wpdb connect with different databas

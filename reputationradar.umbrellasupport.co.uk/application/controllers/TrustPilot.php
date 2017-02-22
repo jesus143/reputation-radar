@@ -7,7 +7,7 @@ class TrustPilot extends  CI_Controller {
 
     protected $companyUrl = '';
     protected $url;
-    protected $acceptedBadRating = 5;
+    protected $acceptedBadRating = 3;
 
     public function Index()
     {

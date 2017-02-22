@@ -12,9 +12,10 @@ class  Reputation_radar_setting_batch_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_batch()
+    public function get_batch($id)
     {
-        $query    = $this->db->get($this->table_name);
+        // $query    = $this->db->get($this->table_name);
+        $query = $this->db->get_where($this->table_name, array('id' => $id));
         $response =  $query->result_array();
         return $response [0];
     }

@@ -16,16 +16,12 @@ class Google extends  CI_Controller
         $this->load->model('Reputation_radar_setting_batch_model', 'google_batch');
 
         // get all the entries for the partner settings
-        $batch = $this->google_batch->get_batch();
+        $batch = $this->google_batch->get_batch(1);
 
         $setting = $this->setting->get_entry_by_batch_index($batch['index']);
 
-        print_r($setting);
-
-
+                print_r($setting);
         //        print phpinfo();
-        //
-        //
         //        exit;
 
         // url encoded for google keyword

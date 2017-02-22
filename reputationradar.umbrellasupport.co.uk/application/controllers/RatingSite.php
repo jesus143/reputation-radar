@@ -8,25 +8,42 @@ class RatingSite extends  CI_Controller {
     protected $reviewCentre;
     protected $ratingSites = [];
     protected $trustPilot;
+    protected $batch_id = 0;
+    protected $url;
 
     function __construct()
     {
         parent::__construct();
         $this->load->model('Reputation_radar_rating_sites_model', 'rating_site');
         $this->load->model('Reputation_radar_alert_model', 'alert');
+        $this->load->model('Reputation_radar_setting_batch_model', 'google_batch');
         $this->ratingSites   = $this->rating_site->get_last_ten_entries();
-
-
+        $this->batch_id = 2;
 
     }
 
+
+
+
     public function Index()
     {
+        print "<pre>";
+
+        $batch   = $this->google_batch->get_batch($this->batch_id);
+        $site = $this->rating_site->get_entry_by_batch_index($batch['index']);
+
+
+        print_r($site);
+
+         // update settings batch now
+        $this->google_batch->update_batch_increment($batch, $site);
+//        exit;
+
         $this->load->library('reviewcentre');
         $this->load->library('trustpilot');
 
-        foreach($this->ratingSites as $key => $site):
-            switch($site->url):
+//        foreach($this->ratingSites as $key => $site):
+            switch($setting['url']):
                 case (strpos($site->url, 'uk.trustpilot.com') > 0):
                     print " trust pilot query url " . $site->url;
                     $trustPilot  = new TrustPilot();
@@ -42,6 +59,11 @@ class RatingSite extends  CI_Controller {
                 default:
                     break;
             endswitch;
-        endforeach;
+//        endforeach;
+
+
+
+
+
     }
 }
