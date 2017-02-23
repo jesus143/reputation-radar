@@ -20,9 +20,7 @@ class Google extends  CI_Controller
 
         $setting = $this->setting->get_entry_by_batch_index($batch['index']);
 
-                print_r($setting);
-        //        print phpinfo();
-        //        exit;
+        print_r($setting);
 
         // url encoded for google keyword
         $keyword = urlencode($setting['company_search_keyword']);
@@ -31,10 +29,12 @@ class Google extends  CI_Controller
         $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
 
 
-        print "Test";
 
         // scrape google data
         $results = $this->getGoogleData();
+
+        print " <br> scraped data " ;
+        print_r($results);
 
         //check if exist then do nothing but if not then do insert
         $this->alert->checkIfAlertIsExistOrElseInsertAlert($results, $setting['partner_id']);
@@ -45,7 +45,6 @@ class Google extends  CI_Controller
 
 
 
-        print "done";
     }
 
     public function getGoogleData()
@@ -83,18 +82,18 @@ class Google extends  CI_Controller
 
             // title results store to array
             if(!empty($title)) {
-                $result[$i]['title'] = $title->text();
+                $result[$i]['title'] = htmlentities($title->text());
             }
 
             // link results store to array
             if(!empty($link)) {
-                $result[$i]['url'] = $link->text();
+                $result[$i]['url'] = htmlentities($link->text());
             }
 
             // description results store to array
             if(!empty($description)) {
 
-                $result[$i]['description'] = $description->text();
+                $result[$i]['description'] = htmlentities($description->text());
             }
 
             // increment counter for array

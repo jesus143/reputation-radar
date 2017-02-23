@@ -21,9 +21,12 @@ class Reputation_radar_alert_model extends CI_Model {
                 // set partner id in array
                 $data['partner_id'] = $partner_id;
 
+
+
+                print "test url " . htmlentities ($data['url']) ;
                 // select and current data this is the based to check if exist
                 $query = $this->db->select('*')
-                    ->where('url', $data['url'])
+                    ->where('url',  htmlentities ($data['url']))
                     ->where('partner_id', $data['partner_id'])
                     ->get($this->table_name);
 
@@ -35,7 +38,6 @@ class Reputation_radar_alert_model extends CI_Model {
         }
     }
 
-
     // check and insert for review centre site, rating site
     public function checkIfAlertIsExistOrElseInsertAlertFromReviewCentre($alertDataArr, $partner_id)
     {
@@ -46,8 +48,8 @@ class Reputation_radar_alert_model extends CI_Model {
 
                 // select and current data this is the based to check if exist
                 $query = $this->db->select('*')
-                    ->where('title', $data['title'])
-                    ->where('partner_id', $data['partner_id'])
+                    ->where('title',  htmlentities ($data['title']))
+                    ->where('partner_id', htmlentities ($data['partner_id']))
                     ->get($this->table_name);
 
                 // if not exist then do insert new alert to specific partner
@@ -70,8 +72,8 @@ class Reputation_radar_alert_model extends CI_Model {
 
                 // select and current data this is the based to check if exist
                 $query = $this->db->select('*')
-                    ->where('description', $data['description'])
-                    ->where('partner_id', $data['partner_id'])
+                    ->where('description', htmlentities ($data['description']))
+                    ->where('partner_id', htmlentities ($data['partner_id']))
                     ->get($this->table_name);
 
                 // if not exist then do insert new alert to specific partner

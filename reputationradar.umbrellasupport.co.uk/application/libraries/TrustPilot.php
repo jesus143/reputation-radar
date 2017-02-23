@@ -52,9 +52,9 @@ class Trustpilot {
             if($review['total_star'] <= $this->acceptedBadRating) {
 
                 $data[] = [
-                    'description' => strip_tags($review['content']),
-                    'person_name' => strip_tags(change_long_space_to_sing_space($review['full_name'])),
-                    'url' => $this->url,
+                    'description' => strip_tags(htmlentities($review['content'])),
+                    'person_name' => strip_tags(htmlentities(change_long_space_to_sing_space($review['full_name']))),
+                    'url' => htmlentities($this->url),
                     'rate' => $review['total_star'],
                 ];
             }

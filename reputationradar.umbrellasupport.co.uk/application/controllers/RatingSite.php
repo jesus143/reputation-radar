@@ -58,6 +58,9 @@ class RatingSite extends  CI_Controller {
 
         }
 
+        print "<pre>";
+        print_r( $reviewCentreArray );
+
 
     }
 }
