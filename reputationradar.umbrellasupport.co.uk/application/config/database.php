@@ -75,11 +75,18 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '1234567890',
-	'database' => 'practice_wordpress',
-	'dbdriver' => 'mysql',
+
+//		'hostname' => 'db639369002.db.1and1.com',
+//		'username' => 'dbo639369002',
+//		'password' => '1qazxsw2!QAZXSW@',
+//		'database' => 'db639369002',
+
+		'hostname' => 'localhost',
+		'username' => 'root',
+		'password' => '1234567890',
+		'database' => 'practice_wordpress',
+
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
@@ -94,3 +101,5 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+

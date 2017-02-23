@@ -1,5 +1,5 @@
 <?php
-error_reporting(0);
+error_reporting(1);
 
 class Google extends  CI_Controller
 {
@@ -30,6 +30,9 @@ class Google extends  CI_Controller
         // compose url ready for scrape to google
         $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
 
+
+        print "Test";
+
         // scrape google data
         $results = $this->getGoogleData();
 
@@ -38,6 +41,11 @@ class Google extends  CI_Controller
 
         // update settings batch now
         $this->google_batch->update_batch_increment($batch, $setting);
+
+
+
+
+        print "done";
     }
 
     public function getGoogleData()
@@ -50,6 +58,11 @@ class Google extends  CI_Controller
 
         // load dom library for php
         $this->load->library('simplehtmldom');
+
+
+//        print "successfully loaded";
+
+
 
         // results from website query, for now we do search in google
         // but in the future we may be able to search in bing, yahoo and other

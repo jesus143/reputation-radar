@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 
-class ReviewCentre extends  CI_Controller {
+class Reviewcentre extends  CI_Controller {
 
     protected $companyUrl = '';
     protected $url;

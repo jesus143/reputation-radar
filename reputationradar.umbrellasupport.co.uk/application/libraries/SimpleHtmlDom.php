@@ -111,7 +111,7 @@ function dump_html_tree($node, $show_attr=true, $deep=0)
  *
  * @package PlaceLocalInclude
  */
-class SimpleHtmlDom
+class Simplehtmldom
 {
     public $nodetype = HDOM_TYPE_TEXT;
     public $tag = 'text';

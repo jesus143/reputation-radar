@@ -29,40 +29,34 @@ class RatingSite extends  CI_Controller {
     {
         print "<pre>";
 
-        $batch   = $this->google_batch->get_batch($this->batch_id);
+        // get from database tables
+        $batch = $this->google_batch->get_batch($this->batch_id);
         $site = $this->rating_site->get_entry_by_batch_index($batch['index']);
 
-
+        //
         print_r($site);
 
-         // update settings batch now
+        // update settings batch now
         $this->google_batch->update_batch_increment($batch, $site);
-//        exit;
 
+        // load libraries
         $this->load->library('reviewcentre');
         $this->load->library('trustpilot');
 
-//        foreach($this->ratingSites as $key => $site):
-            switch($setting['url']):
-                case (strpos($site->url, 'uk.trustpilot.com') > 0):
-                    print " trust pilot query url " . $site->url;
-                    $trustPilot  = new TrustPilot();
-                    $reviewCentreArray = $this->trustpilot->getBadRatings( $site->url );
-                    $this->alert->checkIfAlertIsExistOrElseInsertAlertFromTrustPilot($reviewCentreArray, $site->partner_id);
-                break;
-                case (strpos($site->url, 'reviewcentre.com') > 0):
-                    print " review center query url " . $site->url;
-                    $reviewCentre  = new ReviewCentre();
-                    $reviewCentreArray =  $this->reviewcentre->getBadRatings( $site->url );
-                    $this->alert->checkIfAlertIsExistOrElseInsertAlertFromReviewCentre($reviewCentreArray, $site->partner_id);
-                break;
-                default:
-                    break;
-            endswitch;
-//        endforeach;
+        // save alert data
+        if (strpos($site->url, 'uk.trustpilot.com') > 0) {
+            print " trust pilot query url " . $site->url;
+            $trustPilot = new TrustPilot();
+            $reviewCentreArray = $this->trustpilot->getBadRatings($site->url);
+            $this->alert->checkIfAlertIsExistOrElseInsertAlertFromTrustPilot($reviewCentreArray, $site->partner_id);
+        }elseif (strpos($site->url, 'reviewcentre.com') > 0) {
+            print " review center query url " . $site->url;
+            $reviewCentre = new ReviewCentre();
+            $reviewCentreArray = $this->reviewcentre->getBadRatings($site->url);
+            $this->alert->checkIfAlertIsExistOrElseInsertAlertFromReviewCentre($reviewCentreArray, $site->partner_id);
+        } else {
 
-
-
+        }
 
 
     }
