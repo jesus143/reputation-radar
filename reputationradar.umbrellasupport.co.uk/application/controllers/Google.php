@@ -28,7 +28,7 @@ class Google extends  CI_Controller
         // compose url ready for scrape to google
         $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
 
-
+        print " keyword search " .  $this->companyUrl;
 
         // scrape google data
         $results = $this->getGoogleData();
@@ -82,12 +82,12 @@ class Google extends  CI_Controller
 
             // title results store to array
             if(!empty($title)) {
-                $result[$i]['title'] = htmlentities($title->text());
+                $result[$i]['title'] =  htmlentities($title->text());
             }
 
             // link results store to array
             if(!empty($link)) {
-                $result[$i]['url'] = htmlentities($link->text());
+                $result[$i]['url'] =  htmlentities($link->text());
             }
 
             // description results store to array
