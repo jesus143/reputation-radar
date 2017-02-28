@@ -5,6 +5,7 @@ class Google extends  CI_Controller
 {
 
     protected $companyUrl = '';
+    protected $keyword = '';
 
     public function Index()
     {
@@ -23,10 +24,11 @@ class Google extends  CI_Controller
         print_r($setting);
 
         // url encoded for google keyword
-        $keyword = urlencode($setting['company_search_keyword']);
+        $this->keyword = urlencode($setting['company_search_keyword']);
+
 
         // compose url ready for scrape to google
-        $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $keyword;
+        $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $this->keyword;
 
         print " keyword search " .  $this->companyUrl;
 
@@ -94,7 +96,10 @@ class Google extends  CI_Controller
             if(!empty($description)) {
 
                 $result[$i]['description'] = htmlentities($description->text());
-            }
+            } 
+
+            $result[$i]['keyword'] = str_replace("+", " ", $this->keyword);
+
 
             // increment counter for array
             $i++;

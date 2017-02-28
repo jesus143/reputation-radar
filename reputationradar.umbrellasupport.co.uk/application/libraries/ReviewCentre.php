@@ -5,7 +5,7 @@ class ReviewCentre {
 
     protected $companyUrl = '';
     protected $url;
-    protected $acceptedBadRating = 5;
+    protected $acceptedBadRating = 3;
     protected $CI;
 
     public function __construct()

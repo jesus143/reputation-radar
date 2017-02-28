@@ -19,6 +19,16 @@ if(!function_exists('change_long_space_to_sing_space')) {
     }
 }
 
+if(!function_exists('addhttp')) { 
+    function addhttp($url) {
+        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+            $url = "http://" . $url;
+        }
+        return $url;
+    }
+}
+
+
 if(!function_exists('isDomainAvailible')) {
     function isDomainAvailible($domain)
     {
