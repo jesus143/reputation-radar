@@ -43,7 +43,7 @@ class ReviewCentre {
                     'title' => strip_tags(htmlentities($review['title'])),
                     'description' => strip_tags(htmlentities($review['content'])),
                     'person_name' => strip_tags(htmlentities(change_long_space_to_sing_space($review['full_name']))),
-                    'url' => htmlentities($this->url),
+                    'url' => htmlentities($review['source_url']), 
                     'rate' => $review['total_star'],
                 ];
             }
@@ -61,10 +61,12 @@ class ReviewCentre {
                 'name' => 'rows',
                 'query' => '//*[contains(@class, "ReviewCommentWrapper")]',
                 'subqueries' => array(
+
                     'date_created' => '//*[contains(@class, "ReviewCommentContentRight")]//p[1]//span[1]',
                     'full_name' => '//*[contains(@class, "ReviewCommentContentRight")]//p[1]//span[2]',
                     'content' => '//*[contains(@class, "ReviewCommentContentRight")]//p[2]',
                     'title' => '//*[contains(@class, "ReviewCommentContentRight")]//h3//a',
+                    'source_url' => '//*[contains(@class, "ReviewCommentContentRight")]//h3//a//@href',
                     'star_1' => '//*[contains(@class, "starsLarge RatingStarsLarge_1-0")]',
                     'star_2' => '//*[contains(@class, "starsLarge RatingStarsLarge_2-0")]',
                     'star_3' => '//*[contains(@class, "starsLarge RatingStarsLarge_3-0")]',
@@ -73,6 +75,7 @@ class ReviewCentre {
                 ),
             )
         );
+
 
         // Merge Comment time, content, rating and full name
         foreach($table_rows1['rows'] as $index => $value) {

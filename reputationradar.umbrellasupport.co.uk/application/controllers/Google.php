@@ -65,7 +65,7 @@ class Google extends  CI_Controller
         $this->alert->checkIfAlertIsExistOrElseInsertAlert($results, $setting['partner_id']);
 
         // update settings batch now
-        $this->google_batch->update_batch_increment($batch, $setting); 
+        $this->google_batch->update_batch_increment($batch, $setting);
     }
 
     public function getGoogleData()

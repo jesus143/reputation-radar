@@ -48,11 +48,19 @@ class RatingSite extends  CI_Controller {
             print " trust pilot query url " . $site->url;
             $trustPilot = new TrustPilot();
             $reviewCentreArray = $this->trustpilot->getBadRatings($site->url);
+            //            print "<pre>";
+            //                print "sets";
+            //            print_r($reviewCentreArray);
+            //
+
+
+
             $this->alert->checkIfAlertIsExistOrElseInsertAlertFromTrustPilot($reviewCentreArray, $site->partner_id);
         }elseif (strpos($site->url, 'reviewcentre.com') > 0) {
             print " review center query url " . $site->url;
             $reviewCentre = new ReviewCentre();
             $reviewCentreArray = $this->reviewcentre->getBadRatings($site->url);
+
             $this->alert->checkIfAlertIsExistOrElseInsertAlertFromReviewCentre($reviewCentreArray, $site->partner_id);
         } else {
 

@@ -76,12 +76,9 @@ class Reputation_radar_alert_model extends CI_Model {
 
                 // select and current data this is the based to check if exist
                 $query = $this->db->select('*')
-                    ->where('title',  htmlentities ($data['title']))
-                    ->where('partner_id', htmlentities ($data['partner_id']))
+                    ->where('title',  $data['title'])
+                    ->where('partner_id', $data['partner_id'])
                     ->get($this->table_name);
-
-                
-
 
                 // if not exist then do insert new alert to specific partner
                 if ($query->num_rows() < 1) {
@@ -99,7 +96,7 @@ class Reputation_radar_alert_model extends CI_Model {
         }
     }
 
-    // check and insert for review centre site, rating site
+    // check and insert for trust pilot site, rating site
     public function checkIfAlertIsExistOrElseInsertAlertFromTrustPilot($alertDataArr, $partner_id)
     {
 
@@ -111,13 +108,20 @@ class Reputation_radar_alert_model extends CI_Model {
 
                 // select and current data this is the based to check if exist
                 $query = $this->db->select('*')
-                    ->where('description', htmlentities ($data['description']))
-                    ->where('partner_id', htmlentities ($data['partner_id']))
+                    ->where('description', $data['description'])
+                    ->where('partner_id', $data['partner_id'])
                     ->get($this->table_name);
 
                 // if not exist then do insert new alert to specific partner
                 if ($query->num_rows() < 1) {
-                    $this->db->insert($this->table_name, $data);
+                    if($this->db->insert($this->table_name, $data)) {
+                        print "<br> Successfully inserted";
+                    }  else {
+                        print "<br> Failed to insert";
+                    }
+                } else {
+                    print "<br> not insert because already exist";
+
                 }
             }
         }

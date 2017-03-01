@@ -61,6 +61,7 @@ class Reviewcentre extends  CI_Controller {
                     'full_name' => '//*[contains(@class, "ReviewCommentContentRight")]//p[1]//span[2]',
                     'content' => '//*[contains(@class, "ReviewCommentContentRight")]//p[2]',
                     'title' => '//*[contains(@class, "ReviewCommentContentRight")]//h3//a',
+                    'source_url' => '//*[contains(@class, "ReviewCommentContentRight")]//h3//a/@hrf',
                     'star_1' => '//*[contains(@class, "starsLarge RatingStarsLarge_1-0")]',
                     'star_2' => '//*[contains(@class, "starsLarge RatingStarsLarge_2-0")]',
                     'star_3' => '//*[contains(@class, "starsLarge RatingStarsLarge_3-0")]',
@@ -70,6 +71,13 @@ class Reviewcentre extends  CI_Controller {
              )
          );
 
+
+
+//        print "<pre>";
+//        print_r($table_rows1);
+//
+//        print "testtestest";
+//        exit;
         // Merge Comment time, content, rating and full name
         foreach($table_rows1['rows'] as $index => $value) {
 
