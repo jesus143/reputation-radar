@@ -28,4 +28,68 @@ class  Reputation_radar_setting_model extends CI_Model {
         //        print_R($results);
         //        exit;
     }
+
+    public function composeSearchKeyword($keyword, $keywordSetting)
+    {
+        $newKeyword = '';
+
+        switch($keywordSetting):
+            case "Broad match":
+
+                // keyword
+
+                $newKeyword = $keyword;
+
+                break;
+            case "Broad match modifier":
+
+                    // +keyword1 +keyword2
+
+                    $newKeyword = $this->addCharPerFirstWord($keyword);
+
+                break;
+            case "Phrase match":
+
+                    // "keyword"
+
+                    $newKeyword =   '"'. $keyword . '"';
+
+                break;
+            case "Exact match":
+
+                    // [keyword]
+
+                    $newKeyword =   '['. $keyword . ']';
+
+                break;
+            case "Negative match":
+
+                    // -keyword
+
+                    $newKeyword = $this->addCharPerFirstWord($keyword, '-');
+
+                break;
+            default:
+                break;
+        endswitch;
+
+        return $newKeyword;
+    }
+
+    private function addCharPerFirstWord($str, $chr='+')
+    {
+        $keywordArr = explode(' ', $str);
+        $newKeyword = '';
+        $counter = 0;
+        foreach($keywordArr as $keyword) {
+            $newKeyword .= $chr.$keyword;
+            if($counter < count($keywordArr)-1) {
+                $newKeyword .= ' ';
+            }
+            $counter++;
+        }
+
+        return $newKeyword;
+    }
+
 }

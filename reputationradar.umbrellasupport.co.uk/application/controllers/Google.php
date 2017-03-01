@@ -1,6 +1,24 @@
 <?php
 error_reporting(1);
 
+
+/**
+ *
+ * keyword refer link:
+ * https://support.google.com/adwords/answer/2497836
+ *
+ *
+ * Broad match (example)
+ * i love you
+ * 
+ * Broad match modifier 
+ * src: https://support.google.com/adwords/answer/7042511
+ * +i +love +you
+ * 
+ * Phrase match 
+ * src: https://support.google.com/adwords/answer/2497584
+ * "tennis shoes" 
+ */
 class Google extends  CI_Controller
 {
 
@@ -23,14 +41,19 @@ class Google extends  CI_Controller
 
         print_r($setting);
 
-        // url encoded for google keyword
-        $this->keyword = urlencode($setting['company_search_keyword']);
 
+        $this->keyword = $this->setting->composeSearchKeyword($setting['company_search_keyword'], $setting['keyword_setting']);
+        print '<br>' . " keyword " .  $this->keyword;
+        //        print "keyword search " . $this->keyword;
+        //        exit;
+        //        // url encoded for google keyword
+                $this->keyword = urlencode($this->keyword);
 
         // compose url ready for scrape to google
         $this->companyUrl = 'https://www.google.com.ph/search?num=10&q=' . $this->keyword;
 
-        print " keyword search " .  $this->companyUrl;
+        print '<br>' . " google url search " .  $this->companyUrl;
+
 
         // scrape google data
         $results = $this->getGoogleData();
@@ -42,11 +65,7 @@ class Google extends  CI_Controller
         $this->alert->checkIfAlertIsExistOrElseInsertAlert($results, $setting['partner_id']);
 
         // update settings batch now
-        $this->google_batch->update_batch_increment($batch, $setting);
-
-
-
-
+        $this->google_batch->update_batch_increment($batch, $setting); 
     }
 
     public function getGoogleData()
