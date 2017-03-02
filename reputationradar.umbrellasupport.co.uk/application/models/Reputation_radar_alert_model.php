@@ -108,7 +108,7 @@ class Reputation_radar_alert_model extends CI_Model {
 
                 // select and current data this is the based to check if exist
                 $query = $this->db->select('*')
-                    ->where('description', $data['description'])
+                    ->where('url', $data['url'])
                     ->where('partner_id', $data['partner_id'])
                     ->get($this->table_name);
 
