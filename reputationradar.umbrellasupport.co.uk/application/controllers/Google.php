@@ -66,6 +66,9 @@ class Google extends  CI_Controller
 
         // update settings batch now
         $this->google_batch->update_batch_increment($batch, $setting);
+
+
+
     }
 
     public function getGoogleData()
