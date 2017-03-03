@@ -31,9 +31,14 @@ class RatingSite extends  CI_Controller {
 
         // get from database tables
         $batch = $this->google_batch->get_batch($this->batch_id);
-        $site = $this->rating_site->get_entry_by_batch_index($batch['index']);
+        $site = $this->rating_site->get_entry_by_batch_index($batch['index_pos']);
 
-        //
+
+
+        print " batch <br>";
+        print_r($batch);
+
+        print " rating site <br>";
         print_r($site);
 
         // update settings batch now

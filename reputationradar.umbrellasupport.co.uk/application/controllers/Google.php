@@ -23,7 +23,10 @@ class Google extends  CI_Controller
 {
 
     protected $companyUrl = '';
-    protected $keyword = '';
+    protected $keyword    = '';
+    protected $batch_id   = '';
+
+
 
     public function Index()
     {
@@ -33,11 +36,16 @@ class Google extends  CI_Controller
         $this->load->model('Reputation_radar_setting_model', 'setting');
         $this->load->model('Reputation_radar_alert_model', 'alert');
         $this->load->model('Reputation_radar_setting_batch_model', 'google_batch');
+        $batch_id = 1;
 
         // get all the entries for the partner settings
         $batch = $this->google_batch->get_batch(1);
+        
+        print " batch <br>";
+        print_r($batch);
 
-        $setting = $this->setting->get_entry_by_batch_index($batch['index']);
+        $setting = $this->setting->get_entry_by_batch_index($batch['index_pos']);
+
 
         print_r($setting);
 
