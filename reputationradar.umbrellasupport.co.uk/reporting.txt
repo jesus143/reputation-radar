@@ -32,13 +32,43 @@ Continue with google search
     Thanks,
 
 
+    1. Create batch for rating site scraping
+    2. Make data tables works in testing
+    3. Make bootstrap working
+    5. Wait for php version to update to latest version
+    6. Move the agent side to reputation.umbrellasupport.com
+    7. Connect agent side to testing database, find ways how wpdb connect with different database
 
 
 
 
-    Create batch for rating site scraping
-    Make data tables works in testing
-    Make bootstrap working
-    Wait for php version to update to latest version
-    Move the agent side to reputation.umbrellasupport.com
-    Connect agent side to testing database, find ways how wpdb connect with different databas
+
+
+
+
+
+    Update for March 1, 2017
+
+    Hi Sir,
+
+    1. Add database row for keyword_settings in "wp_reputation_radar_settings" table
+    2. Create ui dropdown select for keyword_setting for partner to select their default keyword search type and set default as "broad match"
+    3. When refresh partner settings then allow set value if there is keyword_setting already for specific partner
+    4. Allow update keyword_setting to db
+    5. Allow insert keyword_setting to db
+    6. Compose keyword settings for google
+    7. Set keyword_setting in google scrape and set parameter based on keyword_setting in order to search in google
+    8. In rating site, get source url that partner can view the full comment of their customer
+    9. Allow source url saved to alert database and display in agent and partner ui
+
+
+    Todo March 2, 2017
+
+    1. Upload code to testing for this management partner ids
+    2. Fix ui
+    3. Ask query to get all partners id from ontraport
+    4. Make the scrapping works propperly for rating site
+    5. Move code and install for agent side in http://reputationradar.umbrellasupport.co.uk/ site and change wpdb connection to connect in testing database
+    6. Do Testing
+
+    Thank and God Bless!

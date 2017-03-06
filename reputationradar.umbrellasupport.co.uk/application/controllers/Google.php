@@ -40,12 +40,12 @@ class Google extends  CI_Controller
 
         // get all the entries for the partner settings
         $batch = $this->google_batch->get_batch(1);
-        
+
         print " batch <br>";
+
         print_r($batch);
 
         $setting = $this->setting->get_entry_by_batch_index($batch['index_pos']);
-
 
         print_r($setting);
 
